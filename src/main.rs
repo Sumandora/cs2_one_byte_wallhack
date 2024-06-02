@@ -11,17 +11,15 @@ fn main() {
         .filter_map(|p| p.ok())
         .find(|p| p.status().map(|s| s.name == "cs2").unwrap_or(false))
         .expect("No self-process?");
+    println!("{:?}", process.maps());
     let mem_file = OpenOptions::new()
         .read(true)
         .write(true)
         .open("/proc/".to_owned() + &process.pid().to_string() + "/mem")
         .expect("Could't open mem file");
-    let factory = BcrlFactory::from_files(
-        &process.maps().expect("Couldn't open maps file"),
-        &mem_file,
-        false,
-    )
-    .expect("Couldn't create bcrl factory");
+    let factory =
+        BcrlFactory::from_files(&process.maps().expect("Couldn't open maps file"), &mem_file)
+            .expect("Couldn't create bcrl factory");
 
     let ptr = factory
         .signature(
@@ -30,6 +28,7 @@ fn main() {
                 .thats_readable()
                 .with_name("libclient.so".to_owned()),
         )
+        .inspect(|e| println!("1: {}", e.get_address()))
         .find_all_references::<NativeEndian>(
             4,
             SearchConstraints::everything()

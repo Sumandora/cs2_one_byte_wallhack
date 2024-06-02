@@ -5,7 +5,7 @@ edition = "2021"
 license = "MIT"
 
 [dependencies]
-bcrl-rs = { git = "https://github.com/Sumandora/bcrl-rs.git", version = "0.1.0" }
+bcrl-rs = { git = "https://github.com/Sumandora/bcrl-rs.git", version = "0.1.1" }
 byteorder = "1.5.0"
 lde = "0.3.0"
 procfs = "0.16.0"
