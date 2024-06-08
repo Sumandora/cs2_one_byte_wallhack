@@ -28,7 +28,6 @@ fn main() {
                 .thats_readable()
                 .with_name("libclient.so".to_owned()),
         )
-        .inspect(|e| println!("1: {}", e.get_address()))
         .find_all_references::<NativeEndian>(
             4,
             SearchConstraints::everything()
