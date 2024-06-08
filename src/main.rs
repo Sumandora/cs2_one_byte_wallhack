@@ -11,7 +11,6 @@ fn main() {
         .filter_map(|p| p.ok())
         .find(|p| p.status().map(|s| s.name == "cs2").unwrap_or(false))
         .expect("No self-process?");
-    println!("{:?}", process.maps());
     let mem_file = OpenOptions::new()
         .read(true)
         .write(true)
