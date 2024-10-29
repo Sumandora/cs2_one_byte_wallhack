@@ -10,10 +10,10 @@ fn main() {
         .expect("Couldn't read processes")
         .filter_map(|p| p.ok())
         .find(|p| p.status().map(|s| s.name == "cs2").unwrap_or(false))
-        .expect("No self-process?");
+        .expect("Didn't find cs2 process.");
     let mem_file = OpenOptions::new()
         .read(true)
-        .write(true)
+        .write(true) // profs doesn't support opening with write permissions
         .open("/proc/".to_owned() + &process.pid().to_string() + "/mem")
         .expect("Could't open mem file");
     let factory =
